@@ -108,7 +108,7 @@ const App = {
                     </div>
                 </form>
                 <div class="login-footer">
-                    <p>Default: admin / admin123</p>
+                   
                 </div>
             </div>`;
 
