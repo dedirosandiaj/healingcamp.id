@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healing Camp - Sewa Alat Camping & Tempat Camping Terbaik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { poppins: ['Poppins', 'sans-serif'] },
+                    colors: { primary: '#166534', secondary: '#15803d', accent: '#d97706', dark: '#0f172a' }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #166534 0%, #15803d 50%, #d97706 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .scroll-reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center">
+                        <i class="fas fa-campground text-white text-lg"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-dark">Healing<span class="text-primary">Camp</span></span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-primary transition-colors font-medium">Beranda</a>
+                    <a href="#equipment" class="text-gray-700 hover:text-primary transition-colors font-medium">Sewa Alat</a>
+                    <a href="#locations" class="text-gray-700 hover:text-primary transition-colors font-medium">Lokasi</a>
+                    <a href="#packages" class="text-gray-700 hover:text-primary transition-colors font-medium">Paket</a>
+                </div>
+                <button class="md:hidden text-gray-700 text-2xl" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#home" class="block text-gray-700 hover:text-primary py-2">Beranda</a>
+                <a href="#equipment" class="block text-gray-700 hover:text-primary py-2">Sewa Alat</a>
+                <a href="#locations" class="block text-gray-700 hover:text-primary py-2">Lokasi</a>
+                <a href="#packages" class="block text-gray-700 hover:text-primary py-2">Paket</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-green-50 via-white to-amber-50"></div>
+        <div class="absolute top-20 right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-20 left-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse" style="animation-delay:2s"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left scroll-reveal" id="heroText">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-dark leading-tight mb-6">
+                        Sewa Alat Camping & <span class="gradient-text">Tempat Camping</span> Terbaik
+                    </h1>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#equipment" class="bg-primary text-white px-8 py-4 rounded-full font-semibold hover:bg-green-800 transition-all transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2">
+                            <span>Lihat Peralatan</span><i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#locations" class="bg-white text-primary border-2 border-primary px-8 py-4 rounded-full font-semibold hover:bg-primary hover:text-white transition-all flex items-center justify-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i><span>Jelajahi Lokasi</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative scroll-reveal">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-3xl transform rotate-3 opacity-20"></div>
+                    <img id="heroImage" src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=800&h=600&fit=crop" alt="Hero" class="relative rounded-3xl shadow-2xl w-full object-cover h-[500px]">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="scroll-reveal group p-8 rounded-2xl bg-gradient-to-br from-green-50 to-white border border-green-100 hover:shadow-xl transition-all duration-300">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i class="fas fa-campground text-primary text-2xl"></i></div>
+                    <h3 class="text-xl font-bold text-dark mb-3">Peralatan Lengkap</h3>
+                    <p class="text-gray-600">Tersedia berbagai peralatan camping berkualitas dari tenda, sleeping bag, kompor, hingga perlengkapan outdoor lainnya.</p>
+                </div>
+                <div class="scroll-reveal group p-8 rounded-2xl bg-gradient-to-br from-amber-50 to-white border border-amber-100 hover:shadow-xl transition-all duration-300" style="transition-delay:0.1s">
+                    <div class="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i class="fas fa-mountain text-accent text-2xl"></i></div>
+                    <h3 class="text-xl font-bold text-dark mb-3">Lokasi Strategis</h3>
+                    <p class="text-gray-600">Pilih dari 50+ lokasi camping indah di seluruh Indonesia dengan pemandangan alam yang memukau.</p>
+                </div>
+                <div class="scroll-reveal group p-8 rounded-2xl bg-gradient-to-br from-orange-50 to-white border border-orange-100 hover:shadow-xl transition-all duration-300" style="transition-delay:0.2s">
+                    <div class="w-16 h-16 bg-orange-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i class="fas fa-tags text-orange-500 text-2xl"></i></div>
+                    <h3 class="text-xl font-bold text-dark mb-3">Harga Terjangkau</h3>
+                    <p class="text-gray-600">Sewa peralatan dan tempat camping dengan harga bersahabat, cocok untuk solo traveler maupun grup.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Section -->
+    <section id="equipment" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <div class="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4">Sewa Alat Camping</div>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Peralatan <span class="gradient-text">Berkualitas</span></h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Kami menyediakan peralatan camping terbaik yang terawat dan siap pakai untuk pengalaman camping yang nyaman.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="equipmentGrid"></div>
+        </div>
+    </section>
+
+    <!-- Locations Section -->
+    <section id="locations" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <div class="inline-block bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-semibold mb-4">Lokasi Camping</div>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Temukan <span class="gradient-text">Spot Camping</span> Terbaik</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Dari pegunungan hingga pantai, kami memiliki berbagai lokasi camping dengan pemandangan spektakuler.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="locationsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="packages" class="py-20 bg-gradient-to-br from-green-50 to-amber-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <div class="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4">Paket Camping</div>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Pilih <span class="gradient-text">Paket Camping</span> Anda</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Paket lengkap dengan peralatan dan tempat camping untuk pengalaman outdoor yang tak terlupakan.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8" id="packagesGrid"></div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <div class="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4">Testimoni</div>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Apa Kata <span class="gradient-text">Mereka</span>?</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8" id="testimonialsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 scroll-reveal">
+                <div class="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4">Hubungi Kami</div>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Siap untuk <span class="gradient-text">Berpetualang</span>?</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto" id="contactGrid"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center"><i class="fas fa-campground text-white text-lg"></i></div>
+                        <span class="text-2xl font-bold">Healing<span class="text-primary">Camp</span></span>
+                    </div>
+                    <p class="text-gray-400 mb-6 max-w-sm">Solusi camping terbaik di Indonesia. Sewa alat camping berkualitas dan temukan lokasi camping indah untuk petualangan Anda.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Tautan Cepat</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#home" class="hover:text-primary transition-colors">Beranda</a></li>
+                        <li><a href="#equipment" class="hover:text-primary transition-colors">Sewa Alat</a></li>
+                        <li><a href="#locations" class="hover:text-primary transition-colors">Lokasi</a></li>
+                        <li><a href="#packages" class="hover:text-primary transition-colors">Paket</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Layanan</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-primary transition-colors">Sewa Tenda</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Booking Camp</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Paket Group</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Event Organizer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">&copy; <span id="yearText"></span> HealingCamp.id. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm">Kebijakan Privasi</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors text-sm">Syarat & Ketentuan</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Location Detail Modal -->
+    <div id="locationModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transform transition-all">
+            <div class="relative">
+                <img id="modalLocImage" src="" alt="" class="w-full h-64 object-cover">
+                <button onclick="closeLocationModal()" class="absolute top-4 right-4 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors shadow-lg">
+                    <i class="fas fa-times text-dark"></i>
+                </button>
+            </div>
+            <div class="p-8">
+                <div class="flex items-center space-x-2 text-primary mb-2">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="modalLocRegion" class="font-medium"></span>
+                </div>
+                <h2 id="modalLocName" class="text-3xl font-bold text-dark mb-4"></h2>
+                <p id="modalLocDesc" class="text-gray-600 mb-6 leading-relaxed"></p>
+                
+                <div class="mb-6">
+                    <h3 class="font-semibold text-dark mb-3">Fasilitas</h3>
+                    <div id="modalLocFacilities" class="flex flex-wrap gap-2"></div>
+                </div>
+                
+                <div class="flex items-center justify-between pt-6 border-t border-gray-100">
+                    <div>
+                        <span class="text-gray-500 text-sm">Harga per malam</span>
+                        <div id="modalLocPrice" class="text-3xl font-bold text-primary"></div>
+                    </div>
+                    <a id="modalLocWaLink" href="#" target="_blank" class="bg-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-green-800 transition-colors flex items-center space-x-2">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Tanyakan</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.getElementById('yearText').textContent = new Date().getFullYear();
+
+    function formatPrice(p) { return 'Rp ' + Number(p).toLocaleString('id-ID'); }
+    function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+    function getWhatsAppLink(phone, message) {
+        const cleanPhone = (phone || '').replace(/\D/g, '');
+        if (!cleanPhone) return '#';
+        const encodedMsg = encodeURIComponent(message);
+        return `https://wa.me/${cleanPhone}?text=${encodedMsg}`;
+    }
+
+    let whatsappNumber = '';
+
+    async function loadData() {
+        try {
+            const res = await fetch('cms/api/data.php');
+            const data = await res.json();
+            if (data.success) renderAll(data);
+        } catch (e) {
+            console.error('Failed to load data:', e);
+        }
+    }
+
+    function renderAll(data) {
+        const s = data.settings || {};
+        whatsappNumber = s.contact_whatsapp || s.social_whatsapp || s.contact_phone || '';
+
+        // Hero
+        if (s.hero_title) {
+            document.querySelector('#heroText h1').innerHTML = s.hero_title;
+        }
+        if (s.hero_subtitle) {
+            const p = document.createElement('p');
+            p.className = 'text-lg text-gray-600 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0';
+            p.textContent = s.hero_subtitle;
+            document.querySelector('#heroText h1').after(p);
+        }
+        if (s.hero_image) {
+            const img = s.hero_image.startsWith('http') ? s.hero_image : 'cms/' + s.hero_image;
+            document.getElementById('heroImage').src = img;
+        }
+
+        // Equipment
+        const eqGrid = document.getElementById('equipmentGrid');
+        if (data.equipment.length) {
+            eqGrid.innerHTML = data.equipment.map((i, idx) => `
+                <div class="scroll-reveal group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300" style="transition-delay:${idx*0.1}s">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="${esc(i.image)}" alt="${esc(i.name)}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-bold text-dark mb-2">${esc(i.name)}</h3>
+                        <p class="text-gray-500 text-sm mb-3">${esc(i.desc)}</p>
+                        <div class="flex items-center justify-between">
+                            <div><span class="text-xl font-bold text-primary">${formatPrice(i.price)}</span><span class="text-gray-400 text-xs">/hari</span></div>
+                            <a href="${getWhatsAppLink(whatsappNumber, `Halo, saya tertarik menyewa ${i.name} dengan harga ${formatPrice(i.price)}/hari. Apakah tersedia?`)}" target="_blank" class="bg-primary text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-green-800 transition-colors flex items-center gap-2"><i class="fab fa-whatsapp"></i> Tanyakan</a>
+                        </div>
+                    </div>
+                </div>`).join('');
+        }
+
+        // Locations
+        const locGrid = document.getElementById('locationsGrid');
+        locationData = data.locations;
+        if (data.locations.length) {
+            locGrid.innerHTML = data.locations.map((l, idx) => `
+                <div class="scroll-reveal group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300" style="transition-delay:${idx*0.1}s">
+                    <img src="${esc(l.image)}" alt="${esc(l.name)}" class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 class="text-xl font-bold text-white mb-1">${esc(l.name)}</h3>
+                        <p class="text-gray-300 text-sm mb-3">${esc(l.region)}</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-white font-bold">${formatPrice(l.price)} <span class="text-gray-300 text-sm font-normal">/malam</span></span>
+                            <button onclick="openLocationModal(${idx})" class="bg-white text-dark px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">Detail</button>
+                        </div>
+                    </div>
+                </div>`).join('');
+        }
+
+        // Packages
+        const pkgGrid = document.getElementById('packagesGrid');
+        if (data.packages.length) {
+            const colors = ['bg-green-100 text-primary', 'bg-amber-100 text-accent', 'bg-orange-100 text-orange-500'];
+            pkgGrid.innerHTML = data.packages.map((p, idx) => `
+                <div class="scroll-reveal bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 ${p.popular ? 'border-primary transform scale-105 relative' : 'border-transparent hover:border-primary'}" style="transition-delay:${idx*0.1}s">
+                    ${p.popular ? '<div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-accent text-white px-4 py-1 rounded-full text-sm font-semibold">Populer</div>' : ''}
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 ${colors[idx] || colors[0]} rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas ${esc(p.icon)} text-2xl"></i></div>
+                        <h3 class="text-xl font-bold text-dark mb-2">${esc(p.name)}</h3>
+                        <p class="text-gray-500 text-sm">${esc(p.desc)}</p>
+                    </div>
+                    <div class="text-center mb-6"><span class="text-4xl font-bold text-primary">${formatPrice(p.price)}</span><span class="text-gray-400">/malam</span></div>
+                    <ul class="space-y-3 mb-8">
+                        ${(p.features||[]).map(f => `<li class="flex items-center space-x-3 text-gray-600"><i class="fas fa-check text-green-500"></i><span>${esc(f)}</span></li>`).join('')}
+                    </ul>
+                    <a href="${getWhatsAppLink(whatsappNumber, `Halo, saya tertarik dengan Paket ${p.name} (${formatPrice(p.price)}). Bisa info lebih lanjut?`)}
+" target="_blank" class="w-full bg-primary text-white py-3 rounded-full font-semibold hover:bg-green-800 transition-colors flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> Tanyakan</a>
+                </div>`).join('');
+        }
+
+        // Testimonials
+        const testiGrid = document.getElementById('testimonialsGrid');
+        if (data.testimonials.length) {
+            testiGrid.innerHTML = data.testimonials.map((t, idx) => `
+                <div class="scroll-reveal bg-gray-50 rounded-2xl p-8" style="transition-delay:${idx*0.1}s">
+                    <div class="flex items-center space-x-1 text-accent mb-4">
+                        ${Array.from({length:5}, (_,i) => `<i class="fas fa-star ${i < t.rating ? '' : 'text-gray-300'}"></i>`).join('')}
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">"${esc(t.text)}"</p>
+                    <div class="flex items-center space-x-4">
+                        <img src="${esc(t.image)}" alt="${esc(t.name)}" class="w-12 h-12 rounded-full object-cover">
+                        <div><div class="font-semibold text-dark">${esc(t.name)}</div><div class="text-sm text-gray-500">${esc(t.location)}</div></div>
+                    </div>
+                </div>`).join('');
+        }
+
+        // Contact
+        const contactGrid = document.getElementById('contactGrid');
+        const contactItems = [
+            { icon: 'fa-map-marker-alt', label: s.contact_address_label || 'Alamat', value: s.contact_address || '' },
+            { icon: 'fa-phone', label: s.contact_phone_label || 'Telepon', value: s.contact_phone || '' },
+            { icon: 'fa-envelope', label: s.contact_email_label || 'Email', value: s.contact_email || '' }
+        ];
+        contactGrid.innerHTML = contactItems.map((c, idx) => `
+            <div class="scroll-reveal bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow" style="transition-delay:${idx*0.1}s">
+                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas ${c.icon} text-primary text-2xl"></i></div>
+                <h3 class="font-semibold text-dark mb-2">${esc(c.label)}</h3>
+                <p class="text-gray-600 text-sm">${esc(c.value)}</p>
+            </div>`).join('');
+
+        // Re-observe scroll reveals
+        initScrollReveal();
+    }
+
+    // Navbar scroll
+    window.addEventListener('scroll', function() {
+        const nb = document.getElementById('navbar');
+        if (window.scrollY > 50) { nb.classList.add('bg-white/95','backdrop-blur-md','shadow-md'); }
+        else { nb.classList.remove('bg-white/95','backdrop-blur-md','shadow-md'); }
+    });
+
+    // Scroll reveal
+    function initScrollReveal() {
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.scroll-reveal').forEach(el => obs.observe(el));
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            const t = document.querySelector(this.getAttribute('href'));
+            if (t) { t.scrollIntoView({ behavior:'smooth', block:'start' }); document.getElementById('mobile-menu').classList.add('hidden'); }
+        });
+    });
+
+    initScrollReveal();
+    loadData();
+
+    // Location Modal Functions
+    let locationData = [];
+    window.openLocationModal = function(idx) {
+        const l = locationData[idx];
+        if (!l) return;
+        document.getElementById('modalLocImage').src = l.image;
+        document.getElementById('modalLocName').textContent = l.name;
+        document.getElementById('modalLocRegion').textContent = l.region;
+        document.getElementById('modalLocPrice').textContent = formatPrice(l.price);
+        document.getElementById('modalLocDesc').textContent = l.desc || 'Tidak ada deskripsi';
+        const facilities = l.facilities ? JSON.parse(l.facilities) : [];
+        document.getElementById('modalLocFacilities').innerHTML = facilities.length 
+            ? facilities.map(f => `<span class="bg-green-100 text-primary px-3 py-1 rounded-full text-sm">${esc(f)}</span>`).join('')
+            : '<span class="text-gray-400 text-sm">Tidak ada fasilitas tercatat</span>';
+        // Set WhatsApp link
+        const waMessage = `Halo, saya tertarik dengan Lokasi Camping ${l.name} di ${l.region} dengan harga ${formatPrice(l.price)}/malam. Apakah masih tersedia?`;
+        document.getElementById('modalLocWaLink').href = getWhatsAppLink(whatsappNumber, waMessage);
+        document.getElementById('locationModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    };
+    window.closeLocationModal = function() {
+        document.getElementById('locationModal').classList.add('hidden');
+        document.body.style.overflow = '';
+    };
+    document.getElementById('locationModal')?.addEventListener('click', function(e) {
+        if (e.target === this) closeLocationModal();
+    });
+    </script>
+</body>
+</html>
