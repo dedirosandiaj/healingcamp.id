@@ -35,7 +35,7 @@ try {
     if ($result) {
         while ($row = $result->fetch_assoc()) {
             $image = $row['image'];
-            if ($image && !str_starts_with($image, 'http')) {
+            if ($image && !str_starts_with($image, 'https')) {
                 $image = 'cms/' . $image;
             }
             if (!$image) {
@@ -64,7 +64,7 @@ try {
             
             // Get first image or fallback
             $image = !empty($images) ? $images[0] : '';
-            if ($image && !str_starts_with($image, 'http')) {
+            if ($image && !str_starts_with($image, 'https')) {
                 $image = 'cms/' . $image;
             }
             if (!$image) {
@@ -109,7 +109,7 @@ try {
     if ($result) {
         while ($row = $result->fetch_assoc()) {
             $image = $row['image'];
-            if ($image && !str_starts_with($image, 'http')) {
+            if ($image && !str_starts_with($image, 'https')) {
                 $image = 'cms/' . $image;
             }
             if (!$image) {

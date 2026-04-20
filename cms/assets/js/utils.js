@@ -32,7 +32,7 @@ const Utils = {
 
     imagePath(path) {
         if (!path) return 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23e2e8f0" width="100" height="100"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%2394a3b8" font-size="14">No Image</text></svg>';
-        if (path.startsWith('http')) return path;
+        if (path.startsWith('https')) return path;
         if (path.startsWith('uploads/')) return path;
         return path;
     },
