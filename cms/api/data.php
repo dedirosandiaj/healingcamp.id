@@ -53,10 +53,17 @@ try {
 
     // Ambil locations (status = active)
     $locations = [];
-    $result = $conn->query("SELECT name, region, description, price_per_night, image, facilities FROM locations WHERE status = 'active' ORDER BY id DESC");
+    $result = $conn->query("SELECT name, region, description, price_per_night, images, facilities FROM locations WHERE status = 'active' ORDER BY id DESC");
     if ($result) {
         while ($row = $result->fetch_assoc()) {
-            $image = $row['image'];
+            // Parse images JSON
+            $images = [];
+            try {
+                $images = json_decode($row['images'], true) ?: [];
+            } catch (e) {}
+            
+            // Get first image or fallback
+            $image = !empty($images) ? $images[0] : '';
             if ($image && !str_starts_with($image, 'http')) {
                 $image = 'cms/' . $image;
             }
@@ -69,6 +76,7 @@ try {
                 'description' => $row['description'],
                 'price' => (int)$row['price_per_night'],
                 'image' => $image,
+                'images' => $images,
                 'facilities' => $row['facilities']
             ];
         }
@@ -77,7 +85,7 @@ try {
 
     // Ambil packages (status = active, limit 3)
     $packages = [];
-    $result = $conn->query("SELECT name, description, price, icon, includes, is_popular FROM packages WHERE status = 'active' ORDER BY id DESC");
+    $result = $conn->query("SELECT name, description, price, icon, includes, is_popular, duration, person_count FROM packages WHERE status = 'active' ORDER BY id DESC");
     if ($result) {
         while ($row = $result->fetch_assoc()) {
             $includes = json_decode($row['includes'], true) ?: ['Tenda', 'Sleeping bag', 'Matras'];
@@ -87,7 +95,9 @@ try {
                 'price' => (int)$row['price'],
                 'icon' => $row['icon'] ?: 'fa-campground',
                 'features' => array_slice($includes, 0, 5),
-                'popular' => $row['is_popular'] == 1
+                'popular' => $row['is_popular'] == 1,
+                'duration' => $row['duration'] ?: 'malam',
+                'personCount' => $row['person_count']
             ];
         }
     }

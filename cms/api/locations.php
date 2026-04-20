@@ -30,9 +30,32 @@ switch ($action) {
 
 function listAll() {
     global $conn;
-    $result = $conn->query("SELECT * FROM locations ORDER BY id DESC");
+    $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+    
+    if ($search) {
+        $stmt = $conn->prepare("SELECT id, name, region, price_per_night, images, coordinates, status FROM locations WHERE name LIKE ? ORDER BY id DESC");
+        $searchParam = "%{$search}%";
+        $stmt->bind_param("s", $searchParam);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    } else {
+        $result = $conn->query("SELECT id, name, region, price_per_night, images, coordinates, status FROM locations ORDER BY id DESC");
+    }
+    
     $items = [];
-    while ($row = $result->fetch_assoc()) { $items[] = $row; }
+    if ($result) {
+        while ($row = $result->fetch_assoc()) { 
+            // Parse coordinates to lat/lng
+            if ($row['coordinates']) {
+                $coords = explode(',', $row['coordinates']);
+                if (count($coords) === 2) {
+                    $row['lat'] = trim($coords[0]);
+                    $row['lng'] = trim($coords[1]);
+                }
+            }
+            $items[] = $row; 
+        }
+    }
     jsonResponse(true, '', $items);
 }
 
@@ -54,7 +77,12 @@ function create() {
     $region = postVal('region');
     $description = postVal('description');
     $price = intval(postVal('price_per_night', 0));
-    $image = postVal('image');
+    $newImages = postVal('new_images');
+    $images = [];
+    if ($newImages) {
+        $images = json_decode($newImages, true) ?: [];
+    }
+    $image = !empty($images) ? json_encode($images) : null;
     $facilities = sanitizeFacilities(postVal('facilities'));
     $coordinates = postVal('coordinates');
     $status = postVal('status', 'active');
@@ -63,7 +91,7 @@ function create() {
     if (empty($name)) jsonResponse(false, 'Nama lokasi harus diisi!');
     if ($price <= 0) jsonResponse(false, 'Harga harus lebih dari 0!');
 
-    $stmt = $conn->prepare("INSERT INTO locations (name, region, description, price_per_night, image, facilities, coordinates, status, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO locations (name, region, description, price_per_night, images, facilities, coordinates, status, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sssissssi", $name, $region, $description, $price, $image, $facilities, $coordinates, $status, $userId);
 
     if ($stmt->execute()) {
@@ -79,32 +107,67 @@ function update() {
     $region = postVal('region');
     $description = postVal('description');
     $price = intval(postVal('price_per_night', 0));
-    $image = postVal('image');
+    $newImages = postVal('new_images');
+    $removedImages = postVal('removed_images');
+    $existingImages = isset($_POST['existing_images']) ? $_POST['existing_images'] : [];
     $facilities = sanitizeFacilities(postVal('facilities'));
     $coordinates = postVal('coordinates');
     $status = postVal('status', 'active');
 
     if (empty($name)) jsonResponse(false, 'Nama lokasi harus diisi!');
 
-    // Get old image before update
-    $oldImage = null;
-    if (!empty($image)) {
-        $oldImage = getOldImage($conn, 'locations', $id);
+    // Merge existing and new images
+    $images = $existingImages;
+    if ($newImages) {
+        $newImagesArray = json_decode($newImages, true) ?: [];
+        $images = array_merge($images, $newImagesArray);
     }
+    $image = !empty($images) ? json_encode($images) : null;
 
-    if (!empty($image)) {
-        $stmt = $conn->prepare("UPDATE locations SET name=?, region=?, description=?, price_per_night=?, image=?, facilities=?, coordinates=?, status=? WHERE id=?");
-        $stmt->bind_param("sssissssi", $name, $region, $description, $price, $image, $facilities, $coordinates, $status, $id);
-    } else {
-        $stmt = $conn->prepare("UPDATE locations SET name=?, region=?, description=?, price_per_night=?, facilities=?, coordinates=?, status=? WHERE id=?");
-        $stmt->bind_param("ssissssi", $name, $region, $description, $price, $facilities, $coordinates, $status, $id);
-    }
+    // Get old images before update for deletion
+    $stmt = $conn->prepare("SELECT images FROM locations WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $oldData = $result->fetch_assoc();
+    $stmt->close();
+    
+    $oldImageData = $oldData['images'] ?? null;
+
+    $stmt = $conn->prepare("UPDATE locations SET name=?, region=?, description=?, price_per_night=?, images=?, facilities=?, coordinates=?, status=? WHERE id=?");
+    $stmt->bind_param("sssissssi", $name, $region, $description, $price, $image, $facilities, $coordinates, $status, $id);
 
     if ($stmt->execute()) {
-        // Delete old image after successful update
-        if ($oldImage && $oldImage !== $image) {
-            deleteImage($oldImage);
+        // Delete old images if new images were uploaded
+        if ($newImages && $oldImageData) {
+            $oldImagesArray = json_decode($oldImageData, true) ?: [];
+            foreach ($oldImagesArray as $oldImg) {
+                if ($oldImg) {
+                    $filename = basename($oldImg);
+                    $filePath = __DIR__ . '/../uploads/locations/' . $filename;
+                    
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+                }
+            }
         }
+        
+        // Delete removed images
+        if ($removedImages) {
+            $removedArray = json_decode($removedImages, true) ?: [];
+            foreach ($removedArray as $removedImg) {
+                if ($removedImg) {
+                    $filename = basename($removedImg);
+                    $filePath = __DIR__ . '/../uploads/locations/' . $filename;
+                    
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+                }
+            }
+        }
+        
         jsonResponse(true, 'Lokasi berhasil diupdate');
     }
     jsonResponse(false, 'Gagal mengupdate: ' . $stmt->error);
